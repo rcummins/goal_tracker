@@ -22,6 +22,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      login_user!(@user)
       redirect_to user_url(@user)
     else
       flash[:errors] = @user.errors.full_messages
