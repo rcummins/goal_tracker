@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
       params[:user][:username], params[:user][:password])
     
     if @user
+      login_user!(@user)
       redirect_to user_url(@user)
     else
       flash.now[:errors] = "Incorrect username and/or password"
@@ -17,6 +18,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    logout_current_user!
     redirect_to new_session_url
   end
 end
