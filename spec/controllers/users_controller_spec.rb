@@ -4,42 +4,22 @@ RSpec.describe UsersController, type: :controller do
   subject(:user) { FactoryBot.build(:user) }
 
   describe "GET #index" do
-    context "when the user is logged in" do
-      it "returns http success" do
-        post :create, params: { user: {
-            username: user.username, password: user.password } }
-        get :index
-        expect(response).to have_http_status(:success)
-      end
-    end
-
-    context "when the user is not logged in" do
-      it "redirects to the login page" do
-        get :index
-        expect(response).to redirect_to(new_session_url)
-      end
+    it "returns http success" do
+      post :create, params: { user: {
+          username: user.username, password: user.password } }
+      get :index
+      expect(response).to have_http_status(:success)
     end
   end
 
   describe "GET #show" do
-    context "when the user is logged in" do
-      it "renders the user show template" do
-        post :create, params: { user: {
-            username: user.username, password: user.password } }
-        created_user = User.find_by(username: user.username)
-        get :show, params: { id: created_user.id }
-        expect(response).to have_http_status(:success)
-        expect(response).to render_template(:show)
-      end
-    end
-
-    context "when the user is not logged in" do
-      it "redirects to the login page" do
-        user.save!
-        get :show, params: { id: user.id }
-
-        expect(response).to redirect_to(new_session_url)
-      end
+    it "renders the user show template" do
+      post :create, params: { user: {
+          username: user.username, password: user.password } }
+      created_user = User.find_by(username: user.username)
+      get :show, params: { id: created_user.id }
+      expect(response).to have_http_status(:success)
+      expect(response).to render_template(:show)
     end
   end
 
