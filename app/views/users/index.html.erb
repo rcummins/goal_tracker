@@ -3,3 +3,20 @@
 <% end %>
 
 <h1>All Goal Tracker users</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Start date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @users.each do |user| %>
+            <tr>
+                <td><%= user.username %></td>
+                <td><%= user.created_at.to_date %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
