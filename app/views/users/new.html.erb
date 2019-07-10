@@ -1,2 +1,10 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<% content_for :header do %>
+    <form action="<%= new_session_url %>" method="get">
+        <input type="submit" value="Log in">
+    </form>
+<% end %>
+
+<h1>Sign up for Goal Tracker</h1>
+
+<%= render 'shared/error_messages' %>
+<%= render 'shared/login_form', action: :sign_up %>

@@ -10,6 +10,28 @@
   </head>
 
   <body>
+    <header>
+      <% if logged_in? %>
+
+        <p>Logged in as <%= current_user.username %></p>
+
+        <form action="<%= session_url %>" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <%= insert_form_authenticity_token %>
+
+          <br>
+
+          <input type="submit" value="Log out">
+        </form>
+        
+      <% else %>
+
+        <p>Currently logged out</p>
+        <%= yield :header %>
+
+      <% end %>
+    </header>
+
     <%= yield %>
   </body>
 </html>
