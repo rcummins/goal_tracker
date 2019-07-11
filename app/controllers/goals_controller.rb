@@ -1,0 +1,62 @@
+class GoalsController < ApplicationController
+    def show
+        @goal = Goal.find_by(id: params[:id])
+        @user = User.find_by(id: @goal.user_id)
+        render :show
+    end
+
+    def new
+        render :new
+    end
+
+    def create
+        @goal = Goal.new(goal_params)
+
+        if @goal.save
+            redirect_to goal_url(@goal)
+        else
+            flash[:errors] = @goal.errors.full_messages
+            render :new
+        end
+    end
+
+    def edit
+        @goal = get_current_user_goal
+        render :edit
+    end
+
+    def update
+        @goal = get_current_user_goal
+
+        if @goal.update_attributes(goal_params)
+            redirect_to goal_url(@goal)
+        else
+            flash.now[:errors] = @goal.errors.full_messages
+            render :edit
+        end
+    end
+
+    def destroy
+        @goal = get_current_user_goal
+        @goal.destroy
+
+        redirect_to user_url(current_user)
+    end
+
+    private
+
+    def goal_params
+        params
+            .require(:goal)
+            .permit(:user_id,
+                :title,
+                :description,
+                :due_date,
+                :privacy,
+                :completion)
+    end
+
+    def get_current_user_goal
+        current_user.goals.find_by(id: params[:id])
+    end
+end
