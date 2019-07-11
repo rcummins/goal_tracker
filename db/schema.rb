@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_08_160034) do
+ActiveRecord::Schema.define(version: 2019_07_11_131247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "goals", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "title", null: false
+    t.text "description"
+    t.datetime "due_date"
+    t.boolean "is_private", null: false
+    t.boolean "completed", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "completed"], name: "index_goals_on_user_id_and_completed"
+    t.index ["user_id", "is_private", "completed"], name: "index_goals_on_user_id_and_is_private_and_completed"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
@@ -25,4 +38,5 @@ ActiveRecord::Schema.define(version: 2019_07_08_160034) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "goals", "users"
 end
