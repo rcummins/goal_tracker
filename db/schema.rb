@@ -20,12 +20,12 @@ ActiveRecord::Schema.define(version: 2019_07_11_131247) do
     t.string "title", null: false
     t.text "description"
     t.datetime "due_date"
-    t.boolean "is_private", null: false
-    t.boolean "completed", default: false, null: false
+    t.string "privacy", null: false
+    t.string "completion", default: "Not completed", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id", "completed"], name: "index_goals_on_user_id_and_completed"
-    t.index ["user_id", "is_private", "completed"], name: "index_goals_on_user_id_and_is_private_and_completed"
+    t.index ["user_id", "completion"], name: "index_goals_on_user_id_and_completion"
+    t.index ["user_id", "privacy", "completion"], name: "index_goals_on_user_id_and_privacy_and_completion"
   end
 
   create_table "users", force: :cascade do |t|

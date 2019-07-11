@@ -5,14 +5,14 @@ class CreateGoals < ActiveRecord::Migration[5.2]
       t.string :title, null: false
       t.text :description
       t.datetime :due_date
-      t.boolean :is_private, null: false
-      t.boolean :completed, null: false, default: false
+      t.string :privacy, null: false
+      t.string :completion, null: false, default: 'Not completed'
 
       t.timestamps
     end
 
-    add_index :goals, [:user_id, :is_private, :completed]
-    add_index :goals, [:user_id, :completed]
+    add_index :goals, [:user_id, :privacy, :completion]
+    add_index :goals, [:user_id, :completion]
     add_foreign_key :goals, :users
   end
 end

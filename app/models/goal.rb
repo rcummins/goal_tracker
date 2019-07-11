@@ -1,5 +1,7 @@
 class Goal < ApplicationRecord
-    validates :title, :is_private, :completed, presence: true
+    validates :title, :privacy, :completion, presence: true
+    validates :privacy, inclusion: { in: ['Public', 'Private'] }
+    validates :completion, inclusion: { in: ['Not completed', 'Completed'] }
 
     belongs_to :user
 end
