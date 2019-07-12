@@ -31,7 +31,7 @@ class User < ApplicationRecord
                         ELSE 0
                     END) AS completed_goals"
             )
-            .joins(:goals)
+            .left_outer_joins(:goals)
             .group(
                 'users.id,
                 users.username,
