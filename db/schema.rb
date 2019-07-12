@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_11_131247) do
+ActiveRecord::Schema.define(version: 2019_07_12_185127) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(version: 2019_07_11_131247) do
     t.index ["user_id", "privacy", "completion"], name: "index_goals_on_user_id_and_privacy_and_completion"
   end
 
+  create_table "user_comments", force: :cascade do |t|
+    t.integer "subject_id", null: false
+    t.integer "author_id", null: false
+    t.text "comment_text", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_user_comments_on_subject_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
     t.string "password_digest", null: false
@@ -39,4 +48,6 @@ ActiveRecord::Schema.define(version: 2019_07_11_131247) do
   end
 
   add_foreign_key "goals", "users"
+  add_foreign_key "user_comments", "users", column: "author_id"
+  add_foreign_key "user_comments", "users", column: "subject_id"
 end
