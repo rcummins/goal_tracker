@@ -11,6 +11,8 @@
 
   <body>
     <header>
+      <a href="<%= users_url %>">Goal Tracker</a>
+
       <% if logged_in? %>
 
         <p>Logged in as <%= current_user.username %></p>
