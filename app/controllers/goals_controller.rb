@@ -2,7 +2,11 @@ class GoalsController < ApplicationController
     def show
         @goal = Goal.find_by(id: params[:id])
         @user = User.find_by(id: @goal.user_id)
-        render :show
+        if @goal.privacy == 'Private' && current_user != @user
+            redirect_to user_url(@user)
+        else
+            render :show
+        end
     end
 
     def new

@@ -13,7 +13,12 @@
         </tr>
     </thead>
     <tbody>
-        <% @user.goals.each do |goal| %>
+        <% if current_user == @user %>
+            <% viewable_goals = @user.goals %>
+        <% else %>
+            <% viewable_goals = @user.goals.where(privacy: 'Public') %>
+        <% end %>
+        <% viewable_goals.each do |goal| %>
             <tr>
                 <td><a href="<%= goal_url(goal) %>"><%= goal.title %></a></td>
                 <td><%= goal.privacy %></td>

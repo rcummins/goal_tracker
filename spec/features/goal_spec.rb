@@ -70,4 +70,38 @@ feature 'goals' do
             expect(page).not_to have_content('Eat fewer cupcakes')
         end
     end
+
+    feature 'private goals are visible only to owner' do
+        before(:each) do
+            click_on 'Add a new goal'
+            fill_in 'Title', with: 'Give better birthday presents'
+            choose('Private')
+            click_on 'Create goal'
+        end
+
+        scenario 'private goals are hidden from logged out users' do
+            click_on 'Log out'
+            click_on 'Goal Tracker'
+            click_on 'renata'
+            expect(page).to have_content('Currently logged out')
+            expect(page).to have_content("renata's goals")
+            expect(page).not_to have_content('Give better birthday presents')
+        end
+
+        scenario 'private goals are hidden from other users' do
+            click_on 'Log out'
+            click_on 'Sign up'
+            fill_in 'Username', with: 'jen'
+            fill_in 'Password', with: 'password'
+            click_on 'Sign up'
+            click_on 'Goal Tracker'
+            click_on 'renata'
+            expect(page).to have_content('Logged in as jen')
+            expect(page).to have_content("renata's goals")
+            expect(page).not_to have_content('Give better birthday presents')
+        end
+    end
+
+    feature 'completing a goal' do
+    end
 end
