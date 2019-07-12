@@ -17,6 +17,29 @@ class User < ApplicationRecord
         return nil
     end
 
+    def self.get_all_users_info
+        User
+            .select(
+                "users.id,
+                users.username,
+                users.session_token,
+                users.created_at,
+                COUNT(goals.id) AS total_goals,
+                SUM(
+                    CASE
+                        WHEN goals.completion = 'Completed' THEN 1
+                        ELSE 0
+                    END) AS completed_goals"
+            )
+            .joins(:goals)
+            .group(
+                'users.id,
+                users.username,
+                users.session_token,
+                users.created_at'
+            )
+    end
+
     def ensure_session_token
         self.session_token ||= generate_unique_session_token
     end

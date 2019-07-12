@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :require_logged_out, only: [:new, :create]
 
   def index
-    @users = User.all
+    @users_info = User.get_all_users_info
     render :index
   end
 

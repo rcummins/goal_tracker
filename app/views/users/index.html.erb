@@ -9,15 +9,28 @@
         <tr>
             <th>Username</th>
             <th>Start date</th>
+            <th>Total goals</th>
+            <th>Completed goals</th>
         </tr>
     </thead>
     <tbody>
-        <% @users.each do |user| %>
+        <% @users_info.each do |user| %>
             <tr>
                 <td>
-                    <a href="<%= user_url(user) %>"><%= user.username %></a>
+                    <a href="<%= user_url(user.id) %>"><%= user.username %></a>
                 </td>
-                <td><%= user.created_at.to_date %></td>
+
+                <td>
+                    <%= user.created_at.to_date %>
+                </td>
+
+                <td>
+                    <%= user.total_goals %>
+                </td>
+
+                <td>
+                    <%= user.completed_goals %>
+                </td>
             </tr>
         <% end %>
     </tbody>
