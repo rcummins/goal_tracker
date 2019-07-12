@@ -1,1 +1,37 @@
-<h1><%= @user.username %>'s' goal: <%= @goal.title %></h1>
+<h1><%= @goal.title %></h1>
+
+<p>This goal is owned by <%= @user.username %>.</p>
+<a href="<%= user_url(@user) %>">See all of <%= @user.username %>'s goals</a>
+
+<% unless @goal.description == '' %>
+    <h2>Description</h2>
+    <p><%= @goal.description %></p>
+<% end %>
+
+<% if @goal.due_date %>
+    <h2>Due date</h2>
+    <p><%= @goal.due_date %></p>
+<% end %>
+
+<p>This goal is <%= @goal.privacy.downcase %>.</p>
+
+<% if @goal.completion == 'Not completed' %>
+    <p>This goal has not been completed.</p>
+<% else %>
+    <p>This goal has been completed!</p>
+<% end %>
+
+<% if current_user == @user %>
+    <form action="<%= edit_goal_url(@goal) %>" method="get">
+        <input type="submit" value="Edit goal">
+    </form>
+
+    <br>
+
+    <form action="<%= goal_url(@goal) %>" method="post">
+        <%= insert_form_authenticity_token %>
+        <input type="hidden" name="_method" value="delete">
+
+        <input type="submit" value="Delete goal">
+    </form>
+<% end %>

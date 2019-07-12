@@ -2,4 +2,29 @@
     <%= login_and_signup_buttons %>
 <% end %>
 
-<h1><%= @user.username %>'s Goals</h1>
+<h1><%= @user.username %>'s goals</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Goal title</th>
+            <th>Privacy</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @user.goals.each do |goal| %>
+            <tr>
+                <td><a href="<%= goal_url(goal) %>"><%= goal.title %></a></td>
+                <td><%= goal.privacy %></td>
+                <td><%= goal.completion %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<% if current_user == @user %>
+    <form action="<%= new_user_goal_url(@user) %>" method="get">
+        <input type="submit" value="Add a new goal">
+    </form>
+<% end %>

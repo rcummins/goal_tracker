@@ -1,0 +1,49 @@
+<% action_url = ( action == :new ? goals_url : goal_url(goal) ) %>
+<% submit_label = ( action == :new ? 'Create goal' : 'Update goal') %>
+
+<form action="<%= action_url %>" method="post">
+    <%= insert_form_authenticity_token %>
+    <% if action == :edit %>
+        <input type="hidden" name="_method" value="patch">
+    <% end %>
+
+    <label for="title">Title</label>
+    <input type="text" name="goal[title]" id="title" value="<%= goal.title %>">
+
+    <br>
+
+    <label for="description">Description</label>
+    <textarea name="goal[description]" id="description" cols="30" rows="10"><%= goal.description %></textarea>
+
+    <br>
+
+    <label for="due_date">Due date</label>
+    <input
+        type="datetime-local"
+        name="goal[due_date]"
+        id="due_date"
+        value="<%= goal.due_date %>">
+
+    <br>
+
+    <p>Is this goal public or private?</p>
+    <div>
+        <input
+            type="radio"
+            name="goal[privacy]"
+            id="public"
+            value="Public"
+            <%= goal.privacy == 'Public' ? 'checked' : '' %>>
+        <label for="public">Public</label>
+
+        <input
+            type="radio"
+            name="goal[privacy]"
+            id="private"
+            value="Private"
+            <%= goal.privacy == 'Private' ? 'checked' : '' %>>
+        <label for="private">Private</label>
+    </div>
+
+    <input type="submit" value="<%= submit_label %>">
+</form>
