@@ -10,12 +10,12 @@ class GoalsController < ApplicationController
     end
 
     def create
-        @goal = Goal.new(goal_params)
+        @goal = Goal.new(goal_params_with_user_id)
 
         if @goal.save
             redirect_to goal_url(@goal)
         else
-            flash[:errors] = @goal.errors.full_messages
+            flash.now[:errors] = @goal.errors.full_messages
             render :new
         end
     end
@@ -54,6 +54,10 @@ class GoalsController < ApplicationController
                 :due_date,
                 :privacy,
                 :completion)
+    end
+
+    def goal_params_with_user_id
+        goal_params.merge({ user_id: current_user.id })
     end
 
     def get_current_user_goal
