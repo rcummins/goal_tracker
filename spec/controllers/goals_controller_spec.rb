@@ -12,11 +12,4 @@ RSpec.describe GoalsController, type: :controller do
             expect(response).to render_template(:show)
         end
     end
-
-    describe 'GET #new' do
-        it 'returns http success' do
-            get :new, params: { user_id: user.id }
-            expect(response).to have_http_status(:success)
-        end
-    end
 end

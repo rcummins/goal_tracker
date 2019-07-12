@@ -10,7 +10,11 @@ class GoalsController < ApplicationController
     end
 
     def new
-        render :new
+        if current_user
+            render :new
+        else
+            redirect_to users_url
+        end
     end
 
     def create

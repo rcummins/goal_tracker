@@ -2,6 +2,8 @@ require 'spec_helper'
 require 'rails_helper'
 
 feature 'goals' do
+    subject(:user) { FactoryBot.create(:user) }
+
     before(:each) do
         visit new_user_url
         fill_in 'Username', with: 'renata'
@@ -14,6 +16,12 @@ feature 'goals' do
         scenario 'has a new goal page' do
             click_on "Add a new goal"
             expect(page).to have_content("Create a new goal")
+        end
+
+        scenario 'new goal page not available to logged out user' do
+            click_on 'Log out'
+            visit new_user_goal_url(user)
+            expect(current_path).to eq("/users")
         end
 
         scenario 'lists the goal on the goal show page after creation' do
