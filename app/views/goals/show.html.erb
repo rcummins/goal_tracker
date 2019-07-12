@@ -22,6 +22,19 @@
 <% end %>
 
 <% if current_user == @user %>
+
+    <% if @goal.completion == 'Not completed' %>
+        <form action="<%= goal_url(@goal) %>" method="post">
+            <%= insert_form_authenticity_token %>
+            <input type="hidden" name="_method" value="patch">
+            <input type="hidden" name="goal[completion]" value="Completed">
+
+            <input type="submit" value="Mark goal as completed">
+        </form>
+
+    <br>
+    <% end %>
+
     <form action="<%= edit_goal_url(@goal) %>" method="get">
         <input type="submit" value="Edit goal">
     </form>

@@ -111,5 +111,17 @@ feature 'goals' do
     end
 
     feature 'completing a goal' do
+        before(:each) do
+            click_on 'Add a new goal'
+            fill_in 'Title', with: 'Eat fewer cupcakes'
+            choose('Public')
+            click_on 'Create goal'
+        end
+
+        scenario 'mark as completed button changes goal to completed' do
+            expect(page).not_to have_content('This goal has been completed!')
+            click_on 'Mark goal as completed'
+            expect(page).to have_content('This goal has been completed!')
+        end
     end
 end
