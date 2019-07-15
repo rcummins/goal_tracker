@@ -2,8 +2,6 @@ require 'spec_helper'
 require 'rails_helper'
 
 feature 'comments' do
-    subject(:user) { FactoryBot.create(:user) }
-
     before(:each) do
         visit new_user_url
         fill_in 'Username', with: 'renata'
@@ -23,7 +21,31 @@ feature 'comments' do
         scenario 'an empty comment gives an error' do
             click_on "Add a comment"
             click_on 'Submit comment'
-            expect(current_path).to eq("/users/#{user.id}/user_comments/new")
+            expect(page).to have_content("Enter your comment:")
+            expect(page).to have_content("Comment text can't be blank")
+        end
+    end
+
+    feature 'creating a new comment on a goal' do
+        before(:each) do
+            click_on "Add a new goal"
+            fill_in "Title", with: "Hike all New Hampshire 4,000 footers"
+            choose("Public")
+            click_on "Create goal"
+        end
+
+        scenario 'the comment displays on the goal show page' do
+            click_on 'Add a comment'
+            fill_in 'Enter your comment:', with: 'Sounds like a great goal!'
+            click_on 'Submit comment'
+            expect(page).to have_content("Sounds like a great goal!")
+            expect(page).to have_content("-renata")
+        end
+
+        scenario 'an empty comment gives an error' do
+            click_on 'Add a comment'
+            click_on 'Submit comment'
+            expect(page).to have_content("Enter your comment:")
             expect(page).to have_content("Comment text can't be blank")
         end
     end

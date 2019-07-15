@@ -48,3 +48,18 @@
         <input type="submit" value="Delete goal">
     </form>
 <% end %>
+
+<% comments_to_display = @goal.comments_received.includes(:author) %>
+<h2><%= comments_to_display.empty? ? "" : "Comments" %></h2>
+<% comments_to_display.each do |comment| %>
+    <blockquote>
+        <p><%= comment.comment_text %></p>
+        <footer>-<%= comment.author.username %></footer>
+    </blockquote>
+<% end %>
+
+<% if logged_in? %>
+    <form action="<%= new_goal_goal_comment_url(@goal) %>" method="get">
+        <input type="submit" value="Add a comment">
+    </form>
+<% end %>
