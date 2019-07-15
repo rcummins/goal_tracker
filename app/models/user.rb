@@ -8,9 +8,12 @@ class User < ApplicationRecord
     has_many :comments_received,
         foreign_key: :subject_id,
         class_name: :UserComment
-    has_many :comments_authored,
+    has_many :user_comments_authored,
         foreign_key: :author_id,
         class_name: :UserComment
+    has_many :goal_comments_authored,
+        foreign_key: :author_id,
+        class_name: :GoalComment
 
     after_initialize :ensure_session_token
 
