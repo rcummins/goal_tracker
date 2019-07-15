@@ -4,8 +4,4 @@ class Goal < ApplicationRecord
     validates :completion, inclusion: { in: ['Not completed', 'Completed'] }
 
     belongs_to :user
-
-    has_many :comments_received,
-        foreign_key: :subject_id,
-        class_name: :GoalComment
 end
