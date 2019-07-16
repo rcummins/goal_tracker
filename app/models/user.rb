@@ -5,8 +5,8 @@ class User < ApplicationRecord
     validates :password, length: { minimum: 8}, allow_nil: true
 
     has_many :goals
-    has_many :comments, as: :commentable
     has_many :authored_comments, class_name: :Comment, foreign_key: :author_id
+    include Commentable
 
     after_initialize :ensure_session_token
 

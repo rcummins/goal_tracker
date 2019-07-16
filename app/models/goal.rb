@@ -4,5 +4,5 @@ class Goal < ApplicationRecord
     validates :completion, inclusion: { in: ['Not completed', 'Completed'] }
 
     belongs_to :user
-    has_many :comments, as: :commentable
+    include Commentable
 end
