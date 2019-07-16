@@ -10,18 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_15_173403) do
+ActiveRecord::Schema.define(version: 2019_07_15_222859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "goal_comments", force: :cascade do |t|
-    t.integer "subject_id", null: false
+  create_table "comments", force: :cascade do |t|
+    t.integer "commentable_id", null: false
+    t.string "commentable_type", null: false
     t.integer "author_id", null: false
     t.text "comment_text", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["subject_id"], name: "index_goal_comments_on_subject_id"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
   end
 
   create_table "goals", force: :cascade do |t|
@@ -37,15 +38,6 @@ ActiveRecord::Schema.define(version: 2019_07_15_173403) do
     t.index ["user_id", "privacy", "completion"], name: "index_goals_on_user_id_and_privacy_and_completion"
   end
 
-  create_table "user_comments", force: :cascade do |t|
-    t.integer "subject_id", null: false
-    t.integer "author_id", null: false
-    t.text "comment_text", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["subject_id"], name: "index_user_comments_on_subject_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
     t.string "password_digest", null: false
@@ -56,9 +48,6 @@ ActiveRecord::Schema.define(version: 2019_07_15_173403) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  add_foreign_key "goal_comments", "goals", column: "subject_id"
-  add_foreign_key "goal_comments", "users", column: "author_id"
+  add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "goals", "users"
-  add_foreign_key "user_comments", "users", column: "author_id"
-  add_foreign_key "user_comments", "users", column: "subject_id"
 end
