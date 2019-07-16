@@ -11,17 +11,15 @@ feature 'comments' do
 
     feature 'creating a new comment on a user' do
         scenario 'the comment displays on the user show page' do
-            click_on 'Add a comment'
-            fill_in 'Enter your comment:', with: 'Keep up the good work!'
+            fill_in 'Add a new comment:', with: 'Keep up the good work!'
             click_on 'Submit comment'
             expect(page).to have_content('Keep up the good work!')
             expect(page).to have_content('-renata')
         end
 
         scenario 'an empty comment gives an error' do
-            click_on "Add a comment"
             click_on 'Submit comment'
-            expect(page).to have_content("Enter your comment:")
+            expect(page).to have_content("Add a new comment:")
             expect(page).to have_content("Comment text can't be blank")
         end
     end
@@ -35,17 +33,15 @@ feature 'comments' do
         end
 
         scenario 'the comment displays on the goal show page' do
-            click_on 'Add a comment'
-            fill_in 'Enter your comment:', with: 'Sounds like a great goal!'
+            fill_in 'Add a new comment:', with: 'Sounds like a great goal!'
             click_on 'Submit comment'
             expect(page).to have_content("Sounds like a great goal!")
             expect(page).to have_content("-renata")
         end
 
         scenario 'an empty comment gives an error' do
-            click_on 'Add a comment'
             click_on 'Submit comment'
-            expect(page).to have_content("Enter your comment:")
+            expect(page).to have_content("Add a new comment:")
             expect(page).to have_content("Comment text can't be blank")
         end
     end

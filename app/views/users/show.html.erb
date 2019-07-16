@@ -33,3 +33,39 @@
         <input type="submit" value="Add a new goal">
     </form>
 <% end %>
+
+<% comments_to_display = @user.comments.includes(:author) %>
+<h2><%= comments_to_display.empty? ? "" : "Comments" %></h2>
+<% comments_to_display.each do |comment| %>
+    <blockquote>
+        <p><%= comment.comment_text %></p>
+        <footer>-<%= comment.author.username %></footer>
+    </blockquote>
+<% end %>
+
+<%= render 'shared/error_messages' %>
+
+<% if logged_in? %>
+    <form action="<%= comments_url %>" method="post">
+        <%= insert_form_authenticity_token %>
+        <input
+            type="hidden"
+            name="comment[commentable_id]"
+            value=<%= @user.id %>>
+        <input
+            type="hidden"
+            name="comment[commentable_type"
+            value="User">
+        <input
+            type="hidden"
+            name="comment[author_id]"
+            value="<%= current_user.id %>">
+
+        <label for="comment_text">Add a new comment:</label>
+        <textarea name="comment[comment_text]" id="comment_text" cols="30" rows="10"></textarea>
+
+        <br>
+
+        <input type="submit" value="Submit comment">
+    </form>
+<% end %>

@@ -6,8 +6,9 @@ Rails.application.routes.draw do
     resources :goals, only: [:new]
   end
 
-  resources :goals, only: [:create, :edit, :show, :update, :destroy] do
-  end
+  resources :goals, only: [:create, :edit, :show, :update, :destroy]
+
+  resources :comments, only: [:create]
 
   root to: 'users#index'
 end
