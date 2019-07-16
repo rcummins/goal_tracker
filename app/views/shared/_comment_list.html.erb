@@ -1,0 +1,7 @@
+<h2><%= comments.empty? ? "" : "Comments" %></h2>
+<% comments.each do |comment| %>
+    <blockquote>
+        <p><%= comment.comment_text %></p>
+        <footer>-<%= comment.author.username %></footer>
+    </blockquote>
+<% end %>

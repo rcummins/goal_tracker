@@ -1,0 +1,24 @@
+<% if logged_in? %>
+    <form action="<%= comments_url %>" method="post">
+        <%= insert_form_authenticity_token %>
+        <input
+            type="hidden"
+            name="comment[commentable_id]"
+            value="<%= subject_id %>">
+        <input
+            type="hidden"
+            name="comment[commentable_type]"
+            value="<%= subject_type %>">
+        <input
+            type="hidden"
+            name="comment[author_id]"
+            value="<%= current_user.id %>">
+
+        <label for="comment_text">Add a new comment:</label>
+        <textarea name="comment[comment_text]" id="comment_text" cols="30" rows="10"></textarea>
+
+        <br>
+
+        <input type="submit" value="Submit comment">
+    </form>
+<% end %>
