@@ -1,0 +1,48 @@
+a {
+  text-decoration: none;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+}
+
+header {
+  height: 80px;
+  padding: 0px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #5ac7fa;
+}
+
+.header-session-info {
+  display: flex;
+  align-items: center;
+}
+
+.header-session-info p {
+  font-size: 20px;
+  color: white;
+}
+
+.header-session-info form {
+  margin-left: 20px;
+  color: #5ac7fa;
+}
+
+input[type="submit"] {
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: 800;
+  color: white;
+}

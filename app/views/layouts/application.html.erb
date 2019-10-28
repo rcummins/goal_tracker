@@ -7,29 +7,34 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Nunito:400,700,800&display=swap">
   </head>
 
   <body>
     <header>
-      <a href="<%= users_url %>">Goal Tracker</a>
+      <a class="logo" href="<%= users_url %>">Goal Tracker</a>
 
       <% if logged_in? %>
 
-        <p>Logged in as <%= current_user.username %></p>
+        <div class="header-session-info">
+          <p>Logged in as <%= current_user.username %></p>
 
-        <form action="<%= session_url %>" method="post">
-          <input type="hidden" name="_method" value="delete">
-          <%= insert_form_authenticity_token %>
+          <form action="<%= session_url %>" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <%= insert_form_authenticity_token %>
 
-          <br>
-
-          <input type="submit" value="Log out">
-        </form>
+            <input type="submit" value="Log out">
+          </form>
+        </div>
         
       <% else %>
 
-        <p>Currently logged out</p>
-        <%= yield :header %>
+        <div class="header-session-info">
+          <p>Currently logged out</p>
+          <%= yield :header %>
+        </div>
 
       <% end %>
     </header>
