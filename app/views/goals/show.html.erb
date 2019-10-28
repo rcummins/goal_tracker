@@ -1,3 +1,7 @@
+<% content_for :header do %>
+    <%= login_and_signup_buttons %>
+<% end %>
+
 <h1><%= @goal.title %></h1>
 
 <p>This goal is owned by <%= @user.username %>.</p>
