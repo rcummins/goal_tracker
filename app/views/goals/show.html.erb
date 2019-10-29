@@ -4,57 +4,85 @@
 
 <h1><%= @goal.title %></h1>
 
-<p>This goal is owned by <%= @user.username %>.</p>
-<a href="<%= user_url(@user) %>">See all of <%= @user.username %>'s goals</a>
+<div class="goal-details">
+    <table>
+    <tbody>
+    <tr>
+        <td><h3>Owner</h3></td>
+        <td>
+            <div class="owner-and-link">
+                <p><%= @user.username %></p>
+                <a href="<%= user_url(@user) %>">
+                    See all of <%= @user.username %>'s goals
+                </a>
+            </div>
+        </td>
+    </tr>
 
-<% unless @goal.description == '' %>
-    <h2>Description</h2>
-    <p><%= @goal.description %></p>
-<% end %>
+    <% unless @goal.description == '' %>
+        <tr>
+            <td><h3>Description</h3></td>
+            <td><p><%= @goal.description %></p></td>
+        </tr>
+    <% end %>
 
-<% if @goal.due_date %>
-    <h2>Due date</h2>
-    <p><%= @goal.due_date %></p>
-<% end %>
+    <% if @goal.due_date %>
+        <tr>
+            <td><h3>Due date</h3></td>
+            <td><p><%= @goal.due_date %></p></td>
+        </tr>
+    <% end %>
 
-<p>This goal is <%= @goal.privacy.downcase %>.</p>
+    <tr>
+        <td><h3>Privacy</h3></td>
+        <td><p>This goal is <%= @goal.privacy.downcase %>.</p></td>
+    </tr>
 
-<% if @goal.completion == 'Not completed' %>
-    <p>This goal has not been completed.</p>
-<% else %>
-    <p>This goal has been completed!</p>
-<% end %>
+    <tr>
+        <td><h3>Status</h3></td>
+        <td>
+            <div class="status-and-form">
+            <% if @goal.completion == 'Not completed' %>
+                <p>This goal has not been completed.</p>
+            <% else %>
+                <p>This goal has been completed!</p>
+            <% end %>
+
+            <% if current_user == @user && @goal.completion == 'Not completed' %>
+            <form action="<%= goal_url(@goal) %>" method="post">
+                <%= insert_form_authenticity_token %>
+                <input type="hidden" name="_method" value="patch">
+                <input type="hidden" name="goal[completion]" value="Completed">
+
+                <input type="submit" value="Mark goal as completed">
+            </form>
+            <% end %>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+    </table>
+</div>
 
 <% if current_user == @user %>
 
-    <% if @goal.completion == 'Not completed' %>
-        <form action="<%= goal_url(@goal) %>" method="post">
-            <%= insert_form_authenticity_token %>
-            <input type="hidden" name="_method" value="patch">
-            <input type="hidden" name="goal[completion]" value="Completed">
-
-            <input type="submit" value="Mark goal as completed">
+    <div class="current-user-actions">
+        <form action="<%= edit_goal_url(@goal) %>" method="get">
+            <input type="submit" value="Edit goal">
         </form>
 
-    <br>
-    <% end %>
+        <form action="<%= goal_url(@goal) %>" method="post">
+            <%= insert_form_authenticity_token %>
+            <input type="hidden" name="_method" value="delete">
 
-    <form action="<%= edit_goal_url(@goal) %>" method="get">
-        <input type="submit" value="Edit goal">
-    </form>
+            <input type="submit" value="Delete goal">
+        </form>
+    </div>
 
-    <br>
-
-    <form action="<%= goal_url(@goal) %>" method="post">
-        <%= insert_form_authenticity_token %>
-        <input type="hidden" name="_method" value="delete">
-
-        <input type="submit" value="Delete goal">
-    </form>
 <% end %>
 
-<%= render 'shared/comment_list', comments: @goal.comments.includes(:author) %>
-
-<%= render 'shared/error_messages' %>
-
-<%= render 'shared/comment_form', subject_id: @goal.id, subject_type: 'Goal' %>
+<div class="comments">
+    <%= render 'shared/comment_list', comments: @goal.comments.includes(:author) %>
+    <%= render 'shared/error_messages' %>
+    <%= render 'shared/comment_form', subject_id: @goal.id, subject_type: 'Goal' %>
+</div>
