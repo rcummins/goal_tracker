@@ -7,11 +7,58 @@ body {
   font-size: 18px;
 }
 
-h1 {
+.comments {
+  max-width: 700px;
   margin-top: 20px;
+}
+
+.comments blockquote, .comments form {
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  background-color: #dfe5fe;
+}
+
+.comments form {
+  margin: 20px 0 0;
+  border: 2px solid #5a77fa;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.comments textarea {
+  width: 99%;
+  min-width: 300px;
+  height: 50px;
+  margin: 15px 0;
+}
+
+.comments input[type="submit"] {
+  background-color: #5a77fa;
+  color: white;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.current-user-actions {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 10px;
+}
+
+h1 {
   text-align: center;
+  font-size: 28px;
+}
+
+h2 {
   font-size: 24px;
-  font-weight: 700;
 }
 
 header {
@@ -49,6 +96,11 @@ input[type="submit"] {
   color: inherit;
 }
 
+input[value="Add a new goal"] {
+  background-color: #5ac7fa;
+  color: white;
+}
+
 .logo {
   font-size: 30px;
   font-weight: 800;
@@ -56,7 +108,7 @@ input[type="submit"] {
 }
 
 table {
-  margin: 0 auto 20px;
+  max-width: 700px;
 }
 
 table a {

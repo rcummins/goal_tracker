@@ -29,13 +29,15 @@
 </table>
 
 <% if current_user == @user %>
-    <form action="<%= new_user_goal_url(@user) %>" method="get">
-        <input type="submit" value="Add a new goal">
-    </form>
+    <div class="current-user-actions">
+        <form action="<%= new_user_goal_url(@user) %>" method="get">
+            <input type="submit" value="Add a new goal">
+        </form>
+    </div>
 <% end %>
 
-<%= render 'shared/comment_list', comments: @user.comments.includes(:author) %>
-
-<%= render 'shared/error_messages' %>
-
-<%= render 'shared/comment_form', subject_id: @user.id, subject_type: 'User' %>
+<div class="comments">
+    <%= render 'shared/comment_list', comments: @user.comments.includes(:author) %>
+    <%= render 'shared/error_messages' %>
+    <%= render 'shared/comment_form', subject_id: @user.id, subject_type: 'User' %>
+</div>
