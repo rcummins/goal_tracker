@@ -56,6 +56,25 @@ body {
   margin: 0 10px;
 }
 
+.form-input {
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+}
+
+.form-input label, .form-input p {
+  margin-right: 10px;
+}
+
+.form-input input[type="text"] {
+  width: 357px;
+}
+
+.form-input textarea {
+  width: 300px;
+  height: 50px;
+}
+
 .goal-details .owner-and-link, .goal-details .status-and-form {
   display: flex;
   justify-content: space-between;
@@ -69,6 +88,14 @@ body {
   font-weight: 700;
   background-color: #5ac7fa;
   color: white;
+}
+
+.goal-details .status-and-form form {
+  margin-left: 20px;
+}
+
+.goal-form input[type="submit"] {
+  margin-top: 20px;
 }
 
 h1 {
@@ -119,12 +146,14 @@ input[type="submit"] {
   color: inherit;
 }
 
-input[value="Add a new goal"], input[value="Mark goal as completed"] {
+input[value="Add a new goal"],
+  input[value="Mark goal as completed"],
+  input[value="Create goal"] {
   background-color: #5ac7fa;
   color: white;
 }
 
-input[value="Edit goal"] {
+input[value="Edit goal"], input[value="Update goal"] {
   background-color: #fa8d5a;
   color: white;
 }
