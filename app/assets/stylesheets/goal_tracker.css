@@ -66,10 +66,6 @@ body {
   margin-right: 10px;
 }
 
-.form-input input[type="text"] {
-  width: 357px;
-}
-
 .form-input textarea {
   width: 300px;
   height: 50px;
@@ -92,6 +88,10 @@ body {
 
 .goal-details .status-and-form form {
   margin-left: 20px;
+}
+
+.goal-form .form-input input[type="text"] {
+  width: 357px;
 }
 
 .goal-form input[type="submit"] {
@@ -160,6 +160,26 @@ input[value="Edit goal"], input[value="Update goal"] {
 
 input[value="Delete goal"] {
   background-color: #fa5ac7;
+  color: white;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-form .form-input:first-of-type {
+  margin-top: 30px;
+}
+
+.login-form .form-input:last-of-type {
+  margin: 10px 0;
+}
+
+.login-form input[type="submit"] {
+  margin-top: 20px;
+  background-color: #fa8d5a;
   color: white;
 }
 
