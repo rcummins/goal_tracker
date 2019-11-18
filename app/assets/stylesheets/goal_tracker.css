@@ -56,6 +56,10 @@ body {
   margin: 0 10px;
 }
 
+.empty-table {
+  margin: 25px 20px 15px;
+}
+
 .error-messages {
   color:red;
   margin: 20px 20px 10px;

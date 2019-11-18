@@ -2,31 +2,40 @@
     <%= login_and_signup_buttons %>
 <% end %>
 
-<h1><%= @user.username %>'s goals</h1>
+<% if current_user == @user %>
+    <% page_title = 'My goals' %>
+    <% viewable_goals = @user.goals %>
+    <% empty_table_message = 'You do not have any goals' %>
+<% else %>
+    <% page_title = "#{@user.username}'s goals" %>
+    <% viewable_goals = @user.goals.where(privacy: 'Public') %>
+    <% empty_table_message = "#{@user.username} does not have any goals" %>
+<% end %>
 
-<table>
-    <thead>
-        <tr>
-            <th>Goal title</th>
-            <th>Privacy</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% if current_user == @user %>
-            <% viewable_goals = @user.goals %>
-        <% else %>
-            <% viewable_goals = @user.goals.where(privacy: 'Public') %>
-        <% end %>
-        <% viewable_goals.each do |goal| %>
+<h1><%= page_title %></h1>
+
+<% if viewable_goals.empty? %>
+    <p class="empty-table"><%= empty_table_message %></p>
+<% else %>
+    <table>
+        <thead>
             <tr>
-                <td><a href="<%= goal_url(goal) %>"><%= goal.title %></a></td>
-                <td><%= goal.privacy %></td>
-                <td><%= goal.completion %></td>
+                <th>Goal title</th>
+                <th>Privacy</th>
+                <th>Status</th>
             </tr>
-        <% end %>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <% viewable_goals.each do |goal| %>
+                <tr>
+                    <td><a href="<%= goal_url(goal) %>"><%= goal.title %></a></td>
+                    <td><%= goal.privacy %></td>
+                    <td><%= goal.completion %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% end %>
 
 <% if current_user == @user %>
     <div class="current-user-actions">

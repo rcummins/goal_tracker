@@ -13,6 +13,11 @@ feature 'goals' do
 
     feature 'creating a new goal' do
 
+        scenario 'displays message that user has no goals before 1st created' do
+            expect(page).to have_content('My goals')
+            expect(page).to have_content('You do not have any goals')
+        end
+
         scenario 'has a new goal page' do
             click_on "Add a new goal"
             expect(page).to have_content("Create a new goal")
@@ -93,6 +98,7 @@ feature 'goals' do
             click_on 'renata'
             expect(page).to have_content('Currently logged out')
             expect(page).to have_content("renata's goals")
+            expect(page).to have_content("renata does not have any goals")
             expect(page).not_to have_content('Give better birthday presents')
         end
 
@@ -106,6 +112,7 @@ feature 'goals' do
             click_on 'renata'
             expect(page).to have_content('Logged in as jen')
             expect(page).to have_content("renata's goals")
+            expect(page).to have_content("renata does not have any goals")
             expect(page).not_to have_content('Give better birthday presents')
         end
     end
