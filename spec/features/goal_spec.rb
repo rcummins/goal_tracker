@@ -75,7 +75,7 @@ feature 'goals' do
         end
 
         scenario 'goal disappears from user show page after delete' do
-            click_on "See all of renata's goals"
+            click_on "See all of my goals"
             expect(page).to have_content('Goal title')
             expect(page).to have_content('Eat fewer cupcakes')
             click_on 'Eat fewer cupcakes'
@@ -129,6 +129,38 @@ feature 'goals' do
             expect(page).not_to have_content('This goal has been completed!')
             click_on 'Mark goal as completed'
             expect(page).to have_content('This goal has been completed!')
+        end
+    end
+
+    feature 'navigating to user show pages' do
+        before(:each) do
+            click_on 'Add a new goal'
+            fill_in 'Title', with: 'Eat fewer cupcakes'
+            fill_in 'Description', with: 'Go one month without eating any cupcakes'
+            choose('Public')
+            click_on 'Create goal'
+        end
+
+        scenario "logged in user's goal page has a link back to my goals" do
+            expect(page).to have_content('Go one month without eating any cupcakes')
+            expect(page).to have_content("See all of my goals")
+            click_on "See all of my goals"
+            expect(page).to have_content("My goals")
+        end
+
+        scenario "other user's goal page has a link back to their user page" do
+            click_on 'Log out'
+            click_on 'Sign up'
+            fill_in 'Username', with: 'jen'
+            fill_in 'Password', with: 'password'
+            click_on 'Sign up'
+            click_on 'Goal Tracker'
+            click_on 'renata'
+            click_on 'Eat fewer cupcakes'
+            expect(page).to have_content('Go one month without eating any cupcakes')
+            expect(page).to have_content("See all of renata's goals")
+            click_on "See all of renata's goals"
+            expect(page).to have_content("renata's goals")
         end
     end
 end

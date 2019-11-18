@@ -13,7 +13,11 @@
             <div class="owner-and-link">
                 <p><%= @user.username %></p>
                 <a href="<%= user_url(@user) %>">
-                    See all of <%= @user.username %>'s goals
+                    <% if current_user == @user %>
+                        See all of my goals
+                    <% else %>
+                        See all of <%= @user.username %>'s goals
+                    <% end %>
                 </a>
             </div>
         </td>
