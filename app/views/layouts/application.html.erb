@@ -29,7 +29,9 @@
       <% if logged_in? %>
 
         <div class="header-session-info">
-          <p>Logged in as <%= current_user.username %></p>
+          <a href="<%= user_url(current_user.id) %>">
+            Logged in as <%= current_user.username %>
+          </a>
 
           <form action="<%= session_url %>" method="post">
             <input type="hidden" name="_method" value="delete">

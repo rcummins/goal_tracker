@@ -162,5 +162,12 @@ feature 'goals' do
             click_on "See all of renata's goals"
             expect(page).to have_content("renata's goals")
         end
+
+        scenario "logged in as <username> is a link to my goals" do
+            expect(page).to have_content('Go one month without eating any cupcakes')
+            expect(page).to have_content("See all of my goals")
+            click_on "Logged in as renata"
+            expect(page).to have_content("My goals")
+        end
     end
 end

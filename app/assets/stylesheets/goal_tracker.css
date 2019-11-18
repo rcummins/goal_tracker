@@ -143,7 +143,7 @@ header {
   align-items: center;
 }
 
-.header-session-info p {
+.header-session-info p, .header-session-info a {
   font-size: 20px;
   color: white;
 }
