@@ -1,3 +1,8 @@
+<% comments = subject
+    .comments
+    .includes(:author)
+    .order(created_at: :asc, id: :asc)
+%>
 <h2><%= comments.empty? ? "" : "Comments" %></h2>
 <% comments.each do |comment| %>
     <blockquote>

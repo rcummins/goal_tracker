@@ -46,7 +46,7 @@
 <% end %>
 
 <div class="comments">
-    <%= render 'shared/comment_list', comments: @user.comments.includes(:author) %>
+    <%= render 'shared/comment_list', subject: @user %>
     <%= render 'shared/error_messages' %>
     <%= render 'shared/comment_form', subject_id: @user.id, subject_type: 'User' %>
 </div>
