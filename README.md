@@ -1,5 +1,7 @@
 # Goal Tracker
-[renata-goal-tracker.herokuapp.com](https://renata-goal-tracker.herokuapp.com/?utm_source=github&utm_medium=readme&utm_campaign=github)
+See it live: [renata-goal-tracker.herokuapp.com](https://renata-goal-tracker.herokuapp.com/?utm_source=github&utm_medium=readme&utm_campaign=github)
+
+![Goal Tracker preview](https://renatacumminsprojectgifs.s3.amazonaws.com/goal_tracker.gif)
 
 ## Application description
 Goal Tracker is an app where you can track your public and private goals and cheer on other users as they make progress on their goals. Goal Tracker allows users to:
